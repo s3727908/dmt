@@ -1,0 +1,169 @@
+body, html {
+	margin:0px;
+	background:#f4f7fc;
+	font-family: Roboto, Tahoma, sans-serif;
+	font-size:14px; vertical-align: text-top;
+}
+div {position:relative}
+.text-center {text-align:center}
+h1, h2, h3 {font-family: Roboto, cursive; display:block; color:#286090 }
+h1 { font-size:2.0em; padding:20px 10px 20px 10px; }
+h2 { font-size:1.6em; margin:50px 0px 20px 0px;  }
+h3 { font-size:1.4em; padding:15px 0px 8px 0px;  }
+h4 { font-size:1.2em; padding:10px 0px 5px 0px;  }
+
+
+#app {
+	width:100%; overflow-x:hidden;
+	margin:0 auto; margin-top:60px; margin-bottom:60px;
+}
+#app>.page {
+	width:100%; min-height:300px; display:none;
+}
+#header, #footer {display:block; margin:0px; position:fixed}
+#header {
+	width:100%;
+	top:0px; left:0px;
+	z-index:100;
+	
+}
+#header * { color:#fff;  } 
+#header h1 { padding:10px 5px 10px 15px; margin:0px }
+
+#footer {
+	bottom:0px; left:0px;
+	width:100%; overflow:hidden;
+	z-index:100;
+}
+#header-content {
+	width:100%; min-height:50px;
+	background:#286090; 
+}
+#footer-content {
+	width:100%; min-height:50px;
+	background:#c4c4c4;
+}
+
+h2.numberCircle { padding-left:42px; position:relative }
+.numberCircle>div {
+	border-radius: 50%;
+	behavior: url(PIE.htc);
+	width: 34px;	
+	height: 34px;
+	padding: 2px;
+	background: #fff;
+	border: 2px solid #666;
+	color: #666;
+	text-align: center;
+	position:absolute; left:0px; top:-2px;
+}
+h2>i { font-size:0.7em; font-weight:400; display:block }
+
+.page { position:relative }
+
+.padded-vert .jqx-input-widget, .jqx-button { margin-top:10px; margin-bottom:10px; }
+.padded-vert .jqx-button, .jqx-input-widget { padding:12px 10px 12px 10px !important; height:auto!important; }
+.jqx-button {font-weight:bold;}
+#inputSessionName { width:100% !important }
+
+ul#task-list-container, ul#tasks-progression-container {
+	list-style-type:none; display:block; position:relative;
+	margin:10px 0px 0px 0px; padding:0px;
+}
+ul#task-list-container li {
+	display:block; position:relative;
+	margin:15px 0px 15px 0px;
+	border:solid 1px #e5e5e5;
+	padding:5px;
+	background:#f4f4f4;
+	overflow:hidden;
+}
+.task-remove {
+	height: 14px; width: 14px;
+	display: block;
+	background-position: center center;
+	position: absolute;
+	margin: 5px 5px 0px 0px;
+	right: 0px; top:2px;
+	z-index:10;
+
+
+}
+.icon-close {
+	width:14px; height: 14px;
+	background-repeat: no-repeat;
+	background-position: center;
+}
+ul#task-list-container>li>h3 { display:block; padding:0px 5px 0px 45px; margin:0px; color:#686868}
+ul#task-list-container>li>span, .spanPriority, .spanHours { display:block; padding:0px 5px 5px 45px; color:#686868; font-size:0.9em}
+.jqx-slider-label.jqx-slider-label-top { font-size:0.7em !important; margin-top:8px }
+
+
+
+@media (min-width: 1000px) {
+  #header-content { height:80px; }
+  #header h1 { padding:20px 5px 10px 15px; margin:0px }
+  #footer-content {min-height:60px;}
+  #app { margin-top:90px; margin-bottom:90px; }
+  .padded-bigscreen { max-width: 700px; margin:0px auto }
+}
+
+@media (max-width: 380px) {
+  #header .row, #header .columns, #footer .row, #footer .columns { width: 100%; padding:0px !important }
+  #task-list-container>li>h3 { font-size:1.1em;  }
+  #task-list-container>li>h3, #task-list-container>li>.spanPriority, #task-list-container>li .spanHours { padding:0px 3px 0px 15px !important; }
+  #canvas { padding:2px !important}
+}
+@media (max-width: 320px) {
+  #inputAddTask { width:160px !important }
+}
+
+.sidenav {
+    height: 100%; /* 100% Full-height */
+    width: 0; /* 0 width - change this with JavaScript */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Stay on top */
+    top: 0;
+    left: 0;
+    background-color: #286090;
+    overflow-x: hidden; /* Disable horizontal scroll */
+    padding-top: 60px; /* Place content 60px from the top */
+    transition: 0.5s; /* 0.5 second transition effect to slide in the sidenav */
+}
+.sidenav a {
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    font-size: 25px;
+    color: #fff;
+    display: block;
+    transition: 0.3s;
+}
+#login-form {
+    width:100%;
+    padding: 8px 8px 8px 0px;
+    font-size: 25px;
+    position:relative;
+}
+#login-form input {
+	display:block; margin-top:10px; margin-bottom:10px;
+}
+
+.sidenav a:hover{
+    color: #f1f1f1;
+}
+#mySidenav {overflow:hidden}
+
+
+#canvas {
+    transition: margin-left .5s;
+    padding: 20px;
+}
+.hamburger {
+	position:absolute; right:10px; top:50%; outline:0; margin-top:-26px;
+}
+
+#timer-controls .jqx-button { font-family: "dmt"; margin:6px 5px 5px 5px; padding-left:10px; padding-right:10px;  }
+
+#timer-controls {
+	margin:0px auto; text-align:center;
+}

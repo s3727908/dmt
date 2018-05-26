@@ -1,0 +1,72 @@
+<?php
+
+//enables display of errors (sometimes)
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
+//required library for the UUID function
+require_once('lib/random/random.php');
+date_default_timezone_set ('Australia/Melbourne');
+
+//configure the database instance
+$db = new PDO('mysql:host=localhost;dbname=dividemytime;charset=utf8', 'dmtuser', 'DTM0987654321');
+$db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION); //uncomment to see SQL errors
+
+//generates a uuid
+function getUUID(){
+    $data = random_bytes(16);
+    $data[6] = chr(ord($data[6]) & 0x0f | 0x40); 
+    $data[8] = chr(ord($data[8]) & 0x3f | 0x80); 
+    return vsprintf('%s%s-%s-%s-%s-%s%s%s', str_split(bin2hex($data), 4));
+}
+
+//
+//   API
+//
+
+// respond to body object
+if (isset($_POST['body'])) {
+
+    //check body object is valid JSON string
+    if (is_null(json_decode($_POST['body']))) {
+        print('Error: "body" contained invalid JSON!');
+    } else {
+
+        $body = json_decode($_POST['body']);
+
+        //prepare the statement
+        $statement = $db -> prepare("SELECT DISTINCT id FROM tblUsers WHERE email=:email AND password=ENCRYPT(:password, 'encoding') AND is_enabled=1");
+
+        //pass in parameters and execute
+        $statement->execute(array(
+            'email' => $body->email,
+            'password' => $body->password
+        ));
+
+        //fetch results
+        $query = $statement->fetchAll(PDO::FETCH_ASSOC);
+        
+        //get a UUID to use as a token
+        $uuid = getUUID();
+
+        //output the JSON
+        print(json_encode(array_merge(Array("token" => $uuid), $query[0])));
+
+        //get a date for the token expiry - note: query this date object using: $expireDate->format('Y-m-d H:i:s')
+        $expireDate = new DateTime();
+        $expireDate->modify('+1 day');
+
+        //save the token to the database
+        $statement = $db -> prepare("INSERT INTO tblTokens (user_id, token, expires) VALUES (:id, :uuid, :expireDate)");
+        $statement->execute(array(
+            "id" => $query[0]['id'],
+            "uuid" => $uuid,
+            "expireDate" => $expireDate->format('Y-m-d H:i:s')
+        ));
+
+    }
+} else {
+    print('Error: "body" was not contained in POST!');
+}
+  
+?>
